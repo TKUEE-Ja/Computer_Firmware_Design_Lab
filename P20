@@ -1,0 +1,62 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <algorithm>		//演算法工具，找出最小值
+#include <vector>			//矩陣容器工具
+
+using namespace std;
+
+void printls(string s, int len = 60, char ex = '-')
+{
+	cout << s;
+	for (int i = 0; i < len - s.size();i++)
+	{
+		cout << ex;
+	}
+	return;
+}
+
+int main()
+{
+	freopen("P20IN.txt", "r", stdin);
+	freopen("P20OUT.txt", "w", stdout);
+
+	int F;
+	string fn[100];
+	int R, C, idx;
+
+	while (cin >> F)
+	{
+		//找最長的檔案名稱
+		int M = 0;
+		for (int i = 0;i < F;i++)
+		{
+			cin >> fn[i];
+			M = max(M, (int)fn[i].size());
+		}
+		//計算位置索引
+		C = (60 - M) / (M + 2) + 1;
+		R = ceil((double)F / C);
+		printls("");	//印出分隔量
+		printf("\n");
+		sort(fn, fn + F);	//檔案名稱 1~9 A~Z 排序
+		//印出1s命令的結果
+		for (int r = 0;r < R;r++)
+		{
+			for (int c = 0;c < C;c++)
+			{
+				idx = c * R + r;
+				if (idx < F)
+				{
+					printls(fn[idx], c == C - 1 ? M : M + 2, ' ');
+				}
+
+			}
+			printf("\n");
+		}
+	}
+
+	freopen("CON", "r", stdin);
+	freopen("CON", "w", stdout);
+	return 0;
+}
