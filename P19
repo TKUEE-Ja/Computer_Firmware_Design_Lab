@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <iostream>
+#include <string>
+#include <algorithm>		//演算法工具，找出最小值
+#include <vector>			//矩陣容器工具
+
+using namespace std;
+
+int main()
+{
+	freopen("P20IN.tet", "r", stdin);
+	freopen("P20OUT.txt", "w", stdout);
+
+	vector<int> u(1, 1);
+	int i2 = 0, i3 = 0, i5 = 0;
+	while (u.size() < 1500)
+	{
+		int min23 = min(u[i2] * 2, u[i3] * 3);
+		int nextu = min(min23, u[i5] * 5);
+		u.push_back(nextu);	//醜數加入矩陣
+		//更新索引
+		if (u[i2] * 2 == nextu) i2++;
+		if (u[i3] * 3 == nextu) i3++;
+		if (u[i5] * 5 == nextu) i5++;
+
+	}
+	//印出第1500個數
+	cout << "The 1500'th ugly number is " << u[1499] << ".\n";
+	freopen("CON", "r", stdin);
+	freopen("CON", "w", stdout);
+	return 0;
+}
